@@ -12,9 +12,9 @@
 #import "CollectionViewDataSource.h"
 
 @interface DemoCollectionViewController () <UICollectionViewDelegate>
-@property (nonatomic, strong) CollectionViewDataSource *dataSource;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) MyDemoLayout *demoLayout;
+@property (nonatomic, strong) CollectionViewDataSource *dataSource;
+
 @end
 
 @implementation DemoCollectionViewController
@@ -23,30 +23,27 @@
     [super viewDidLoad];
     
     self.dataSource = [[CollectionViewDataSource alloc] init];
-    self.demoLayout = [[MyDemoLayout alloc] init];
+    MyDemoLayout *demoLayout = [[MyDemoLayout alloc] init];
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:_demoLayout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:demoLayout];
+    [_collectionView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
+    [_collectionView setBackgroundColor:[UIColor whiteColor]];
+    [_collectionView setShowsVerticalScrollIndicator:YES];
     [self registerNIBsForCollectionView:_collectionView];
     [_collectionView setDataSource:_dataSource];
     [_collectionView setDelegate:self];
-    
     [self.view addSubview:_collectionView];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addColor:)];
+    [self.navigationItem setRightBarButtonItem:addButton];
 }
 
 - (void)registerNIBsForCollectionView:(UICollectionView *)collectionView {
     [collectionView registerNib:[UINib nibWithNibName:kDemoCellNibName bundle:nil] forCellWithReuseIdentifier:kDemoCellIdentifier];
 }
 
-#pragma mark - UICollectionView Delegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)addColor:(id)sender {
+    [self.dataSource addColorToCollectionView:_collectionView];
 }
 
 @end

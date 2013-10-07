@@ -25,6 +25,7 @@
 		E21E0D151803514600986B2C /* CollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D141803514600986B2C /* CollectionViewDataSource.m */; };
 		E21E0D181803544C00986B2C /* DemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E21E0D171803544C00986B2C /* DemoCollectionViewCell.xib */; };
 		E21E0D1E180354C200986B2C /* DemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */; };
+		E21E0D221803731500986B2C /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D211803731500986B2C /* UIColor+Random.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		E21E0D171803544C00986B2C /* DemoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoCollectionViewCell.xib; sourceTree = "<group>"; };
 		E21E0D1C180354C200986B2C /* DemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCollectionViewCell.h; sourceTree = "<group>"; };
 		E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoCollectionViewCell.m; sourceTree = "<group>"; };
+		E21E0D201803731500986B2C /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
+		E21E0D211803731500986B2C /* UIColor+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,7 @@
 		E21E0CDF18034FE300986B2C /* CollectionViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E21E0D1F1803730400986B2C /* Categories */,
 				E21E0D0C1803503C00986B2C /* Model */,
 				E21E0D0B1803502E00986B2C /* View */,
 				E21E0D0A1803501F00986B2C /* Controller */,
@@ -216,6 +220,15 @@
 				E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		E21E0D1F1803730400986B2C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				E21E0D201803731500986B2C /* UIColor+Random.h */,
+				E21E0D211803731500986B2C /* UIColor+Random.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E21E0D221803731500986B2C /* UIColor+Random.m in Sources */,
 				E21E0D151803514600986B2C /* CollectionViewDataSource.m in Sources */,
 				E21E0CEA18034FE300986B2C /* AppDelegate.m in Sources */,
 				E21E0CE618034FE300986B2C /* main.m in Sources */,

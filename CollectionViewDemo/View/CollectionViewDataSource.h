@@ -13,4 +13,6 @@ extern NSString * const kDemoCellNibName;
 
 @interface CollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
+- (void)addColorToCollectionView:(UICollectionView *)collectionView;
+
 @end

@@ -10,16 +10,22 @@
 
 @implementation MyDemoLayout
 
-// Implement -layoutAttributesForElementsInRect: to return layout attributes for for supplementary or decoration views, or to perform layout in an as-needed-on-screen fashion.
-// Additionally, all layout subclasses should implement -layoutAttributesForItemAtIndexPath: to return layout attributes instances on demand for specific index paths.
+- (CGSize)collectionViewContentSize {
+    
+    NSArray *layoutAttributes = [self layoutAttributesForElementsInRect:self.collectionView.bounds];
+    UICollectionViewLayoutAttributes *lastItemAttributes = [layoutAttributes lastObject];
+    
+    return CGSizeMake(CGRectGetMaxX(lastItemAttributes.frame), CGRectGetMaxY(lastItemAttributes.frame));
+}
 
-// return an array layout attributes instances for all the views in the given rect
-- (NSArray*)layoutAttributesForElementsInRect:(CGRect)rect {
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     
-    NSMutableArray *attributes = [NSMutableArray array];
+    NSUInteger totalNumberOfItems = [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0];
     
-    for (NSInteger i=0 ; i < 10; i++) {
-        NSIndexPath* indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+    NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:totalNumberOfItems];
+    
+    for (NSInteger index = 0 ; index < totalNumberOfItems; index++) {
+        NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
         [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
     }
     
@@ -28,24 +34,13 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    CGRect cellBounds = CGRectMake(0,0,300, 50);
+    
+    CGFloat xOffset = 10.0f;
+    CGFloat yOffset = (indexPath.item * 50) + (indexPath.item * 1);
+
     UICollectionViewLayoutAttributes* attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    /*
-    CGSize itemSize = [self.viewController sizeForItem:comment];
-    
-    attributes.frame = CGRectMake(0,0,itemSize.width, itemSize.height);
-    
-    float yOffset = 0;
-    
-    for (NSInteger i = 0; i < path.item; i++) {
-        
-        CGSize itemSize = [self.viewController sizeForItem:comment];
-        yOffset += itemSize.height;
-    }
-    
-    attributes.frame = CGRectOffset(attributes.frame, 0, yOffset + path.item);
-    */
-    
-    attributes.frame = CGRectOffset(attributes.frame, 0, 0);
+    [attributes setFrame:CGRectOffset(cellBounds, xOffset, yOffset)];
     
     return attributes;
 }

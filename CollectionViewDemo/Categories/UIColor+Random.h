@@ -1,5 +1,5 @@
 //
-//  DemoCollectionViewCell.h
+//  UIColor+Random.h
 //  CollectionViewDemo
 //
 //  Created by Matt Glover on 07/10/2013.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DemoCollectionViewCell : UICollectionViewCell
+@interface UIColor (Random)
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
++ (UIColor *)randomColor;
 
 @end
