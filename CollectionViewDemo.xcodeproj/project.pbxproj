@@ -19,6 +19,12 @@
 		E21E0CF518034FE300986B2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E21E0CDD18034FE300986B2C /* UIKit.framework */; };
 		E21E0CFD18034FE300986B2C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E21E0CFB18034FE300986B2C /* InfoPlist.strings */; };
 		E21E0CFF18034FE300986B2C /* CollectionViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0CFE18034FE300986B2C /* CollectionViewDemoTests.m */; };
+		E21E0D091803500F00986B2C /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21E0D081803500F00986B2C /* Storyboard.storyboard */; };
+		E21E0D0F1803506900986B2C /* DemoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D0E1803506900986B2C /* DemoCollectionViewController.m */; };
+		E21E0D12180350B000986B2C /* MyDemoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D11180350B000986B2C /* MyDemoLayout.m */; };
+		E21E0D151803514600986B2C /* CollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D141803514600986B2C /* CollectionViewDataSource.m */; };
+		E21E0D181803544C00986B2C /* DemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E21E0D171803544C00986B2C /* DemoCollectionViewCell.xib */; };
+		E21E0D1E180354C200986B2C /* DemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,16 @@
 		E21E0CFA18034FE300986B2C /* CollectionViewDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CollectionViewDemoTests-Info.plist"; sourceTree = "<group>"; };
 		E21E0CFC18034FE300986B2C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E21E0CFE18034FE300986B2C /* CollectionViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDemoTests.m; sourceTree = "<group>"; };
+		E21E0D081803500F00986B2C /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		E21E0D0D1803506900986B2C /* DemoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCollectionViewController.h; sourceTree = "<group>"; };
+		E21E0D0E1803506900986B2C /* DemoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoCollectionViewController.m; sourceTree = "<group>"; };
+		E21E0D10180350B000986B2C /* MyDemoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDemoLayout.h; sourceTree = "<group>"; };
+		E21E0D11180350B000986B2C /* MyDemoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDemoLayout.m; sourceTree = "<group>"; };
+		E21E0D131803514600986B2C /* CollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewDataSource.h; sourceTree = "<group>"; };
+		E21E0D141803514600986B2C /* CollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDataSource.m; sourceTree = "<group>"; };
+		E21E0D171803544C00986B2C /* DemoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoCollectionViewCell.xib; sourceTree = "<group>"; };
+		E21E0D1C180354C200986B2C /* DemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCollectionViewCell.h; sourceTree = "<group>"; };
+		E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +123,9 @@
 		E21E0CDF18034FE300986B2C /* CollectionViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				E21E0CE818034FE300986B2C /* AppDelegate.h */,
-				E21E0CE918034FE300986B2C /* AppDelegate.m */,
+				E21E0D0C1803503C00986B2C /* Model */,
+				E21E0D0B1803502E00986B2C /* View */,
+				E21E0D0A1803501F00986B2C /* Controller */,
 				E21E0CEB18034FE300986B2C /* Images.xcassets */,
 				E21E0CE018034FE300986B2C /* Supporting Files */,
 			);
@@ -118,10 +135,13 @@
 		E21E0CE018034FE300986B2C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E21E0CE818034FE300986B2C /* AppDelegate.h */,
+				E21E0CE918034FE300986B2C /* AppDelegate.m */,
 				E21E0CE118034FE300986B2C /* CollectionViewDemo-Info.plist */,
 				E21E0CE218034FE300986B2C /* InfoPlist.strings */,
 				E21E0CE518034FE300986B2C /* main.m */,
 				E21E0CE718034FE300986B2C /* CollectionViewDemo-Prefix.pch */,
+				E21E0D081803500F00986B2C /* Storyboard.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -142,6 +162,60 @@
 				E21E0CFB18034FE300986B2C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E21E0D0A1803501F00986B2C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E21E0D0D1803506900986B2C /* DemoCollectionViewController.h */,
+				E21E0D0E1803506900986B2C /* DemoCollectionViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E21E0D0B1803502E00986B2C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E21E0D1B180354A300986B2C /* Cells */,
+				E21E0D1A1803549600986B2C /* DataSource */,
+				E21E0D191803548D00986B2C /* Layout */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E21E0D0C1803503C00986B2C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E21E0D191803548D00986B2C /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E21E0D10180350B000986B2C /* MyDemoLayout.h */,
+				E21E0D11180350B000986B2C /* MyDemoLayout.m */,
+			);
+			name = Layout;
+			sourceTree = "<group>";
+		};
+		E21E0D1A1803549600986B2C /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				E21E0D131803514600986B2C /* CollectionViewDataSource.h */,
+				E21E0D141803514600986B2C /* CollectionViewDataSource.m */,
+			);
+			name = DataSource;
+			sourceTree = "<group>";
+		};
+		E21E0D1B180354A300986B2C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E21E0D171803544C00986B2C /* DemoCollectionViewCell.xib */,
+				E21E0D1C180354C200986B2C /* DemoCollectionViewCell.h */,
+				E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +295,8 @@
 			files = (
 				E21E0CE418034FE300986B2C /* InfoPlist.strings in Resources */,
 				E21E0CEC18034FE300986B2C /* Images.xcassets in Resources */,
+				E21E0D091803500F00986B2C /* Storyboard.storyboard in Resources */,
+				E21E0D181803544C00986B2C /* DemoCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,8 +315,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E21E0D151803514600986B2C /* CollectionViewDataSource.m in Sources */,
 				E21E0CEA18034FE300986B2C /* AppDelegate.m in Sources */,
 				E21E0CE618034FE300986B2C /* main.m in Sources */,
+				E21E0D1E180354C200986B2C /* DemoCollectionViewCell.m in Sources */,
+				E21E0D12180350B000986B2C /* MyDemoLayout.m in Sources */,
+				E21E0D0F1803506900986B2C /* DemoCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +521,7 @@
 				E21E0D0418034FE300986B2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E21E0D0518034FE300986B2C /* Build configuration list for PBXNativeTarget "CollectionViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -449,6 +530,7 @@
 				E21E0D0718034FE300986B2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
