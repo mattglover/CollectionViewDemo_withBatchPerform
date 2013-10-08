@@ -7,14 +7,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DemoCellIdentifier" id="6BE-J3-TYm" customClass="DemoCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="321" height="351"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="321" height="351"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roh-4J-Yhm">
-                        <rect key="frame" x="20" y="14" width="42" height="21"/>
+                        <rect key="frame" x="139" y="166" width="42" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -24,10 +24,10 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="roh-4J-Yhm" firstAttribute="top" secondItem="6BE-J3-TYm" secondAttribute="top" constant="14" id="33c-6I-Ab3"/>
-                <constraint firstItem="roh-4J-Yhm" firstAttribute="leading" secondItem="6BE-J3-TYm" secondAttribute="leading" constant="20" id="aTa-gj-Wiw"/>
+                <constraint firstAttribute="centerY" secondItem="roh-4J-Yhm" secondAttribute="centerY" constant="-0.5" id="6Q6-sq-R5K"/>
+                <constraint firstAttribute="centerX" secondItem="roh-4J-Yhm" secondAttribute="centerX" constant="0.5" id="Rmh-Ge-WpW"/>
             </constraints>
-            <size key="customSize" width="324" height="50"/>
+            <size key="customSize" width="345" height="351"/>
             <connections>
                 <outlet property="titleLabel" destination="roh-4J-Yhm" id="XyM-ue-49z"/>
             </connections>

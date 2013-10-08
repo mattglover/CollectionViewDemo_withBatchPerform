@@ -13,7 +13,7 @@
 NSString * const kDemoCellIdentifier = @"DemoCellIdentifier";
 NSString * const kDemoCellNibName = @"DemoCollectionViewCell";
 
-static const NSUInteger numberOfCells = 1000;
+static const NSUInteger numberOfCells = 10000;
 
 @interface CollectionViewDataSource ()
 @property (nonatomic, strong) NSMutableArray *colors;
@@ -39,7 +39,7 @@ static const NSUInteger numberOfCells = 1000;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kDemoCellIdentifier forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath withTitle:[NSString stringWithFormat:@"This is cell index : %ld of %lu", (long)indexPath.item, (unsigned long)[_colors count]]];
+    [self configureCell:cell atIndexPath:indexPath withTitle:[NSString stringWithFormat:@"%ld", (long)indexPath.item]];
     return cell;
 }
 
@@ -61,7 +61,6 @@ static const NSUInteger numberOfCells = 1000;
         [collectionView insertItemsAtIndexPaths:@[insertedIndexPath]];
         
     } completion:^(BOOL finished) {
-        NSLog(@"Completed Insertion");
     }];
 }
 

@@ -34,10 +34,13 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    CGRect cellBounds = CGRectMake(0,0,300, 50);
+    CGRect cellBounds = CGRectMake(0,0, 60, 60);
     
-    CGFloat xOffset = 10.0f;
-    CGFloat yOffset = (indexPath.item * 50) + (indexPath.item * 1);
+    int column = indexPath.item % 4;
+    int row = floor(indexPath.item / 4);
+    
+    CGFloat xOffset = 16.0f + (CGRectGetWidth(cellBounds) * column) + (16.0f * column);
+    CGFloat yOffset = 16.0f + (CGRectGetHeight(cellBounds) * row) + (16.0f * row);
 
     UICollectionViewLayoutAttributes* attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     [attributes setFrame:CGRectOffset(cellBounds, xOffset, yOffset)];
