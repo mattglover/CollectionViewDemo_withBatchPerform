@@ -36,6 +36,9 @@
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addColor:)];
     [self.navigationItem setRightBarButtonItem:addButton];
+    
+    UIBarButtonItem *autoScrollToCell500Button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(autoScroll:)];
+    [self.navigationItem setLeftBarButtonItem:autoScrollToCell500Button];
 }
 
 - (void)registerNIBsForCollectionView:(UICollectionView *)collectionView {
@@ -44,6 +47,26 @@
 
 - (void)addColor:(id)sender {
     [self.dataSource addColorToCollectionView:_collectionView];
+}
+
+- (void)autoScroll:(id)sender {
+    
+    //AutoScroll to the 500th cell
+    NSIndexPath *indexPath500 = [NSIndexPath indexPathForItem:500 inSection:0];
+
+    // Option 1
+    [self.collectionView scrollToItemAtIndexPath:indexPath500
+                                atScrollPosition:UICollectionViewScrollPositionCenteredVertically
+                                        animated:YES];
+    
+    // Option 2
+    /*
+    UICollectionViewLayoutAttributes *attributes = [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:indexPath500];
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         [self.collectionView scrollRectToVisible:attributes.frame animated:NO];
+                     }];
+     */
 }
 
 @end
