@@ -59,26 +59,15 @@ static const NSUInteger numberOfMenuItems= 1000;
     
     MenuItem *menuItem = [[MenuItem alloc] init];
     [menuItem setColor:[UIColor randomColor]];
-    [self updateCollectionView:collectionView WithNewItem:menuItem atIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
-}
-
-- (void)updateCollectionView:(UICollectionView *)collectionView WithNewItem:(Item *)item atIndexPath:(NSIndexPath *)indexPath {
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:4 inSection:0];
     
     [collectionView performBatchUpdates:^{
-        
-        [_menuItems insertObject:item atIndex:indexPath.item];
+        [_menuItems insertObject:menuItem atIndex:indexPath.item];
         NSIndexPath *insertedIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:0];
         [collectionView insertItemsAtIndexPaths:@[insertedIndexPath]];
-        
-    } completion:^(BOOL finished) {
-   
-    }];
-}
-
-#pragma mark - Preview Cell Helper
-- (BOOL)isMenuItemAtIndexPath:(NSIndexPath *)indexPath {
-    Item *item = _menuItems[indexPath.item];
-    return [item isKindOfClass:[MenuItem class]];
+    } completion:nil];
+    
 }
 
 - (void)insertPreviewForMenuItemAtIndexPath:(NSIndexPath *)menuItemIndexPath toCollectionView:(UICollectionView *)collectionView {
@@ -91,31 +80,47 @@ static const NSUInteger numberOfMenuItems= 1000;
         
     } else if (!_currentSelectedMenuItem) {
         // No item currently selected
-        PreviewItem *previewItem = [[PreviewItem alloc] init];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:menuItemIndexPath.item + 1 inSection:0];
-        
-        [self updateCollectionView:collectionView WithNewItem:previewItem atIndexPath:indexPath];
-        _currentSelectedMenuItem = menuItem;
+        // Add New Preview Item
+        [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem];
         
     } else {
         
         // An Item already selected, but new different item selected
-
         // Remove Selected item
         [self removePreviewItemInCollectionView:collectionView
                                 completionBlock:^(BOOL finished) {
-                                    
-                                    PreviewItem *previewItem = [[PreviewItem alloc] init];
-                                    NSUInteger index = [_menuItems indexOfObject:menuItem];
-                                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index + 1 inSection:0];
-                                    
-                                    [self updateCollectionView:collectionView WithNewItem:previewItem atIndexPath:indexPath];
-                                    _currentSelectedMenuItem = menuItem;
+                                    // Add New Preview Item
+                                    [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem];
         }];
     }
 }
 
-#pragma mark - Removing
+
+
+#pragma mark - Preview Cell Helper
+- (BOOL)isMenuItemAtIndexPath:(NSIndexPath *)indexPath {
+    Item *item = _menuItems[indexPath.item];
+    return [item isKindOfClass:[MenuItem class]];
+}
+
+#pragma mark - Adding/Removing
+- (void)addPreviewItemInCollectionView:(UICollectionView *)collectionView forMenuItem:(MenuItem *)menuItem {
+    
+    PreviewItem *previewItem = [[PreviewItem alloc] init];
+    NSUInteger index = [_menuItems indexOfObject:menuItem];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index + 1 inSection:0];
+    
+    [collectionView performBatchUpdates:^{
+        
+        [_menuItems insertObject:previewItem atIndex:indexPath.item];
+        NSIndexPath *insertedIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:0];
+        [collectionView insertItemsAtIndexPaths:@[insertedIndexPath]];
+        
+    } completion:^(BOOL finished) {
+        _currentSelectedMenuItem = menuItem;
+    }];
+}
+
 
 - (void)removePreviewItemInCollectionView:(UICollectionView *)collectionView completionBlock:(void(^)(BOOL finished))removalCompletion {
     
