@@ -26,6 +26,9 @@
 		E21E0D181803544C00986B2C /* DemoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E21E0D171803544C00986B2C /* DemoCollectionViewCell.xib */; };
 		E21E0D1E180354C200986B2C /* DemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */; };
 		E21E0D221803731500986B2C /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = E21E0D211803731500986B2C /* UIColor+Random.m */; };
+		E2DC4C4F180494BF00350E82 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DC4C4E180494BF00350E82 /* MenuItem.m */; };
+		E2DC4C52180494CE00350E82 /* PreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DC4C51180494CE00350E82 /* PreviewItem.m */; };
+		E2DC4C55180495DE00350E82 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = E2DC4C54180495DE00350E82 /* Item.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,12 @@
 		E21E0D1D180354C200986B2C /* DemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoCollectionViewCell.m; sourceTree = "<group>"; };
 		E21E0D201803731500986B2C /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
 		E21E0D211803731500986B2C /* UIColor+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
+		E2DC4C4D180494BF00350E82 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem.h; sourceTree = "<group>"; };
+		E2DC4C4E180494BF00350E82 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
+		E2DC4C50180494CE00350E82 /* PreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewItem.h; sourceTree = "<group>"; };
+		E2DC4C51180494CE00350E82 /* PreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewItem.m; sourceTree = "<group>"; };
+		E2DC4C53180495DE00350E82 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		E2DC4C54180495DE00350E82 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +199,12 @@
 		E21E0D0C1803503C00986B2C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E2DC4C53180495DE00350E82 /* Item.h */,
+				E2DC4C54180495DE00350E82 /* Item.m */,
+				E2DC4C50180494CE00350E82 /* PreviewItem.h */,
+				E2DC4C51180494CE00350E82 /* PreviewItem.m */,
+				E2DC4C4D180494BF00350E82 /* MenuItem.h */,
+				E2DC4C4E180494BF00350E82 /* MenuItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -328,12 +343,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2DC4C55180495DE00350E82 /* Item.m in Sources */,
 				E21E0D221803731500986B2C /* UIColor+Random.m in Sources */,
+				E2DC4C4F180494BF00350E82 /* MenuItem.m in Sources */,
 				E21E0D151803514600986B2C /* CollectionViewDataSource.m in Sources */,
 				E21E0CEA18034FE300986B2C /* AppDelegate.m in Sources */,
 				E21E0CE618034FE300986B2C /* main.m in Sources */,
 				E21E0D1E180354C200986B2C /* DemoCollectionViewCell.m in Sources */,
 				E21E0D12180350B000986B2C /* MyDemoLayout.m in Sources */,
+				E2DC4C52180494CE00350E82 /* PreviewItem.m in Sources */,
 				E21E0D0F1803506900986B2C /* DemoCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,8 +11,12 @@
 extern NSString * const kDemoCellIdentifier;
 extern NSString * const kDemoCellNibName;
 
+@class MenuItem;
 @interface CollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
 - (void)addColorToCollectionView:(UICollectionView *)collectionView;
+
+- (BOOL)isMenuItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)insertPreviewForMenuItemAtIndexPath:(NSIndexPath *)menuItemIndexPath toCollectionView:(UICollectionView *)collectionView;
 
 @end

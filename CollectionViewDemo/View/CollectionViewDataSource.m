@@ -8,59 +8,138 @@
 
 #import "CollectionViewDataSource.h"
 #import "DemoCollectionViewCell.h"
+#import "MenuItem.h"
+#import "PreviewItem.h"
 #import "UIColor+Random.h"
 
 NSString * const kDemoCellIdentifier = @"DemoCellIdentifier";
 NSString * const kDemoCellNibName = @"DemoCollectionViewCell";
 
-static const NSUInteger numberOfCells = 10000;
+static const NSUInteger numberOfMenuItems= 1000;
 
 @interface CollectionViewDataSource ()
-@property (nonatomic, strong) NSMutableArray *colors;
+@property (nonatomic, strong) NSMutableArray *menuItems;
+
+@property (nonatomic, strong) MenuItem *currentSelectedMenuItem;
 @end
 
 @implementation CollectionViewDataSource
 
 - (id)init {
     if ([super init]) {
-        NSMutableArray *colors = [NSMutableArray arrayWithCapacity:numberOfCells];
-        for (NSUInteger index = 0; index < numberOfCells; index++) {
-            [colors addObject:[UIColor randomColor]];
+        _menuItems = [NSMutableArray arrayWithCapacity:numberOfMenuItems];
+        for (NSUInteger index = 0; index < numberOfMenuItems; index++) {
+            MenuItem *menuItem = [[MenuItem alloc] init];
+            [menuItem setColor:[UIColor randomColor]];
+            [_menuItems addObject:menuItem];
         }
-        _colors = colors;
     }
     return self;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_colors count];
+    return [_menuItems count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kDemoCellIdentifier forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath withTitle:[NSString stringWithFormat:@"%ld", (long)indexPath.item]];
+    [self configureCell:cell atIndexPath:indexPath withItem:_menuItems[indexPath.item]];
     return cell;
 }
 
-- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withTitle:(NSString *)titleString {
+- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withItem:(Item *)item {
     
     DemoCollectionViewCell *demoCell = (DemoCollectionViewCell *)cell;
-    [demoCell setBackgroundColor:_colors[indexPath.item]];
-    [demoCell.titleLabel setText:titleString];
+    [demoCell setBackgroundColor:item.color];
 }
 
+#pragma mark - Add Cell Helper
 - (void)addColorToCollectionView:(UICollectionView *)collectionView {
     
-    UIColor *newColor = [UIColor randomColor];
+    MenuItem *menuItem = [[MenuItem alloc] init];
+    [menuItem setColor:[UIColor randomColor]];
+    [self updateCollectionView:collectionView WithNewItem:menuItem atIndexPath:[NSIndexPath indexPathForItem:4 inSection:0]];
+}
+
+- (void)updateCollectionView:(UICollectionView *)collectionView WithNewItem:(Item *)item atIndexPath:(NSIndexPath *)indexPath {
     
     [collectionView performBatchUpdates:^{
         
-        [_colors insertObject:newColor atIndex:4];
-        NSIndexPath *insertedIndexPath = [NSIndexPath indexPathForItem:4 inSection:0];
+        [_menuItems insertObject:item atIndex:indexPath.item];
+        NSIndexPath *insertedIndexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:0];
         [collectionView insertItemsAtIndexPaths:@[insertedIndexPath]];
         
     } completion:^(BOOL finished) {
+   
+    }];
+}
+
+#pragma mark - Preview Cell Helper
+- (BOOL)isMenuItemAtIndexPath:(NSIndexPath *)indexPath {
+    Item *item = _menuItems[indexPath.item];
+    return [item isKindOfClass:[MenuItem class]];
+}
+
+- (void)insertPreviewForMenuItemAtIndexPath:(NSIndexPath *)menuItemIndexPath toCollectionView:(UICollectionView *)collectionView {
+
+    MenuItem *menuItem = _menuItems[menuItemIndexPath.item];
+    
+    if (menuItem == _currentSelectedMenuItem) {
+        // Reselected existing item
+        [self removePreviewItemInCollectionView:collectionView completionBlock:nil];
+        
+    } else if (!_currentSelectedMenuItem) {
+        // No item currently selected
+        PreviewItem *previewItem = [[PreviewItem alloc] init];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:menuItemIndexPath.item + 1 inSection:0];
+        
+        [self updateCollectionView:collectionView WithNewItem:previewItem atIndexPath:indexPath];
+        _currentSelectedMenuItem = menuItem;
+        
+    } else {
+        
+        // An Item already selected, but new different item selected
+
+        // Remove Selected item
+        [self removePreviewItemInCollectionView:collectionView
+                                completionBlock:^(BOOL finished) {
+                                    
+                                    PreviewItem *previewItem = [[PreviewItem alloc] init];
+                                    NSUInteger index = [_menuItems indexOfObject:menuItem];
+                                    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index + 1 inSection:0];
+                                    
+                                    [self updateCollectionView:collectionView WithNewItem:previewItem atIndexPath:indexPath];
+                                    _currentSelectedMenuItem = menuItem;
+        }];
+    }
+}
+
+#pragma mark - Removing
+
+- (void)removePreviewItemInCollectionView:(UICollectionView *)collectionView completionBlock:(void(^)(BOOL finished))removalCompletion {
+    
+    __block Item *previewItem = nil;
+    [_menuItems enumerateObjectsUsingBlock:^(Item *item, NSUInteger idx, BOOL *stop) {
+        if ([item isKindOfClass:[PreviewItem class]]) {
+            previewItem = item;
+            *stop = YES;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [collectionView performBatchUpdates:^{
+                    
+                    [_menuItems removeObject:previewItem];
+                    NSIndexPath *removedIndexPath = [NSIndexPath indexPathForItem:idx inSection:0];
+                    [collectionView deleteItemsAtIndexPaths:@[removedIndexPath]];
+                    
+                } completion:^(BOOL finished) {
+                    _currentSelectedMenuItem = nil;
+                    if (removalCompletion) {
+                        removalCompletion(YES);
+                    }
+                }];
+            });
+        }
     }];
 }
 

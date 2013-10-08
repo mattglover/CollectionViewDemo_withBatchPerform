@@ -10,4 +10,14 @@
 
 @implementation DemoCollectionViewCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self prepareForReuse];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self.titleLabel setText:@""];
+}
+
 @end
