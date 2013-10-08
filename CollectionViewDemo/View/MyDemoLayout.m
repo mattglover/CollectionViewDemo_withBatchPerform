@@ -7,6 +7,8 @@
 //
 
 #import "MyDemoLayout.h"
+#import "CollectionViewDataSource.h"
+#import "PreviewItem.h"
 
 @implementation MyDemoLayout
 
@@ -34,6 +36,8 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    BOOL isMenuItem = [(CollectionViewDataSource *)[self collectionView].dataSource isMenuItemAtIndexPath:indexPath];
+    
     CGRect cellBounds = CGRectMake(0,0, 60, 60);
     
     int column = indexPath.item % 4;
@@ -45,7 +49,28 @@
     UICollectionViewLayoutAttributes* attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     [attributes setFrame:CGRectOffset(cellBounds, xOffset, yOffset)];
     
+    if (!isMenuItem) {
+        [attributes setTransform:CGAffineTransformMakeScale(0.2, 0.2)];
+    }
+    
     return attributes;
+}
+
+- (void)finalizeCollectionViewUpdates {
+    [super finalizeCollectionViewUpdates];
+    
+    NSArray *visibleCells = [self.collectionView visibleCells];
+    [visibleCells enumerateObjectsUsingBlock:^(UICollectionViewCell *cell, NSUInteger idx, BOOL *stop) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!CGAffineTransformIsIdentity(cell.transform)) {
+                [UIView animateWithDuration:0.4
+                                 animations:^{
+                                     [cell setTransform:CGAffineTransformIdentity];
+                                 }];
+            }
+        });
+    }];
 }
 
 @end

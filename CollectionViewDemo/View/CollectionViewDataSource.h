@@ -17,6 +17,6 @@ extern NSString * const kDemoCellNibName;
 - (void)addColorToCollectionView:(UICollectionView *)collectionView;
 
 - (BOOL)isMenuItemAtIndexPath:(NSIndexPath *)indexPath;
-- (void)insertPreviewForMenuItemAtIndexPath:(NSIndexPath *)menuItemIndexPath toCollectionView:(UICollectionView *)collectionView;
+- (void)collectionView:(UICollectionView *)collectionView presentPreviewItemForMenuItemAtIndexPath:(NSIndexPath *)menuItemIndexPat;
 
 @end

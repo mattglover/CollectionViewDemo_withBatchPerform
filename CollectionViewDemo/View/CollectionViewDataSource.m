@@ -70,36 +70,34 @@ static const NSUInteger numberOfMenuItems= 1000;
     
 }
 
-- (void)insertPreviewForMenuItemAtIndexPath:(NSIndexPath *)menuItemIndexPath toCollectionView:(UICollectionView *)collectionView {
+- (void)collectionView:(UICollectionView *)collectionView presentPreviewItemForMenuItemAtIndexPath:(NSIndexPath *)menuItemIndexPath {
 
     MenuItem *menuItem = _menuItems[menuItemIndexPath.item];
     
-    if (menuItem == _currentSelectedMenuItem) {
-        // Reselected existing item
+    if (menuItem == _currentSelectedMenuItem) { // <-- Reselected existing item
+        
         [self removePreviewItemInCollectionView:collectionView completionBlock:nil];
         
-    } else if (!_currentSelectedMenuItem) {
-        // No item currently selected
+    } else if (!_currentSelectedMenuItem) { // <-- No item currently selected
+        
         // Add New Preview Item
         [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem];
         
-    } else {
+    } else { // <-- // An Item already selected, but new different item selected
         
-        // An Item already selected, but new different item selected
         // Remove Selected item
         [self removePreviewItemInCollectionView:collectionView
                                 completionBlock:^(BOOL finished) {
+                                    
                                     // Add New Preview Item
                                     [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem];
         }];
     }
 }
 
-
-
 #pragma mark - Preview Cell Helper
 - (BOOL)isMenuItemAtIndexPath:(NSIndexPath *)indexPath {
-    Item *item = _menuItems[indexPath.item];
+    id item = _menuItems[indexPath.item];
     return [item isKindOfClass:[MenuItem class]];
 }
 
@@ -120,7 +118,6 @@ static const NSUInteger numberOfMenuItems= 1000;
         _currentSelectedMenuItem = menuItem;
     }];
 }
-
 
 - (void)removePreviewItemInCollectionView:(UICollectionView *)collectionView completionBlock:(void(^)(BOOL finished))removalCompletion {
     

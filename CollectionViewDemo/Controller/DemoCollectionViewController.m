@@ -72,7 +72,8 @@
 #pragma mark - UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    [(CollectionViewDataSource *)collectionView.dataSource insertPreviewForMenuItemAtIndexPath:indexPath toCollectionView:self.collectionView];
+    
+    [(CollectionViewDataSource *)collectionView.dataSource collectionView:self.collectionView presentPreviewItemForMenuItemAtIndexPath:indexPath];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
