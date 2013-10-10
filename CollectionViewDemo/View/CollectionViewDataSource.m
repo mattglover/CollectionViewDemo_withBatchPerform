@@ -75,22 +75,28 @@ static const NSUInteger numberOfMenuItems= 1000;
     MenuItem *menuItem = _menuItems[menuItemIndexPath.item];
     
     if (menuItem == _currentSelectedMenuItem) { // <-- Reselected existing item
-        
-        [self removePreviewItemInCollectionView:collectionView completionBlock:nil];
+        [self removePreviewItemInCollectionView:collectionView completionBlock:^(BOOL finished) {
+            NSLog(@"Preview Item Removed");
+        }];
         
     } else if (!_currentSelectedMenuItem) { // <-- No item currently selected
         
         // Add New Preview Item
-        [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem];
+        [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem completion:^(BOOL success) {
+            NSLog(@"Preview Item Added");
+        }];
         
     } else { // <-- // An Item already selected, but new different item selected
         
         // Remove Selected item
         [self removePreviewItemInCollectionView:collectionView
                                 completionBlock:^(BOOL finished) {
+                                    NSLog(@"Preview Item Removed");
                                     
                                     // Add New Preview Item
-                                    [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem];
+                                    [self addPreviewItemInCollectionView:collectionView forMenuItem:menuItem completion:^(BOOL success) {
+                                        NSLog(@"Preview Item Added");
+                                    }];
         }];
     }
 }
@@ -102,9 +108,10 @@ static const NSUInteger numberOfMenuItems= 1000;
 }
 
 #pragma mark - Adding/Removing
-- (void)addPreviewItemInCollectionView:(UICollectionView *)collectionView forMenuItem:(MenuItem *)menuItem {
+- (void)addPreviewItemInCollectionView:(UICollectionView *)collectionView forMenuItem:(MenuItem *)menuItem completion:(void(^)(BOOL success))addPreviewComplete {
     
     PreviewItem *previewItem = [[PreviewItem alloc] init];
+    [previewItem setColor:menuItem.color];
     NSUInteger index = [_menuItems indexOfObject:menuItem];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index + 1 inSection:0];
     
@@ -116,6 +123,9 @@ static const NSUInteger numberOfMenuItems= 1000;
         
     } completion:^(BOOL finished) {
         _currentSelectedMenuItem = menuItem;
+        if (addPreviewComplete) {
+            addPreviewComplete(YES);
+        }
     }];
 }
 

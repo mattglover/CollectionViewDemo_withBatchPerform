@@ -10,12 +10,4 @@
 
 @implementation PreviewItem
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.color = [UIColor blackColor];
-    }
-    return self;
-}
-
 @end
