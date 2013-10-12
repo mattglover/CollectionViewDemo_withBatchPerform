@@ -30,7 +30,7 @@
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-    
+
     NSUInteger totalNumberOfItems = [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0];
     
     NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:totalNumberOfItems];
@@ -38,8 +38,10 @@
     self.foundPreviewItem = NO;
     self.foundPreviewItemRow = 0;
     for (NSInteger index = 0 ; index < totalNumberOfItems; index++) {
+        
         NSIndexPath* indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-        [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
+        UICollectionViewLayoutAttributes *attribute = [self layoutAttributesForItemAtIndexPath:indexPath];
+        [attributes addObject:attribute];
     }
     
     return attributes;
@@ -66,9 +68,12 @@
 // Preview Cell to appear as a large block under the Selected Menu Item
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    int numberOfColumns = CGRectGetWidth(self.collectionView.bounds) == 320 ? 4 : 7;
+    
     CGFloat spacer = 16.0f; // distance between the cells (all sides)
     CGRect menuItemBounds = CGRectMake(0,0, 60, 60);
-    CGRect previewItemBounds = CGRectMake(0,0, 288, 76); //76 or 136 or 196 or 256
+    //CGRect previewItemBounds = CGRectMake(0,0, 288, 76); //76 or 136 or 196 or 256
+    CGRect previewItemBounds = CGRectMake(0,0, numberOfColumns * CGRectGetWidth(menuItemBounds) + ((numberOfColumns - 1) * spacer), 76);
     
     BOOL isMenuItem = [(CollectionViewDataSource *)[self collectionView].dataSource isMenuItemAtIndexPath:indexPath];
     
@@ -78,8 +83,8 @@
     
     CGRect cellBounds = isMenuItem ? menuItemBounds : previewItemBounds;
     
-    int column = self.foundPreviewItem ? (indexPath.item -1) % 4 : indexPath.item % 4;
-    int row =    self.foundPreviewItem ? floor((indexPath.item-1) / 4) : floor(indexPath.item / 4);
+    int column = self.foundPreviewItem ? (indexPath.item -1) % numberOfColumns : indexPath.item % numberOfColumns;
+    int row =    self.foundPreviewItem ? floor((indexPath.item-1) / numberOfColumns) : floor(indexPath.item / numberOfColumns);
     
     if (!isMenuItem) {
         self.foundPreviewItemRow = row;
@@ -105,6 +110,7 @@
     return attributes;
 }
 
+#pragma mark - Adding/Removing  Pre and Post Attributes
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
     [super prepareForCollectionViewUpdates:updateItems];
     

@@ -32,6 +32,7 @@
     [self registerNIBsForCollectionView:_collectionView];
     [_collectionView setDataSource:_dataSource];
     [_collectionView setDelegate:self];
+    [_collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
     [self.view addSubview:_collectionView];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addColor:)];
@@ -76,6 +77,13 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return [(CollectionViewDataSource *)collectionView.dataSource isMenuItemAtIndexPath:indexPath];
+}
+
+#pragma mark - AutoRotation
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 @end
